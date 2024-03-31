@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=DESKTOP-C3VPPB2\\SQLEXPRESS;Database=UserManagementDb;user id=sa;password=123;Trusted_Connection=false;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "C:\Users\knkwoji\Desktop\Vatebra\Vatebra Project Support\VATSOP\VATSOP.Domain\Entities" -ContextDir  DataContexts -UseDatabaseNames -DataAnnotations -force -NoOnConfiguring
