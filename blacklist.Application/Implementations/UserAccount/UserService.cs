@@ -576,7 +576,7 @@ namespace blacklist.Application.Implementations.UserAccounts
                     await _trans.CommitAsync();
                     if (request.RoleNames == null)
                     {
-                        SetSuccess(response, true, ResponseCodes.NULL_ROLE, _language);
+                        SetSuccess(response, true, ResponseCodes.INVALID_ROLE, _language);
                     }
                     else if (nullOrEmptyRole != null)
                     {
