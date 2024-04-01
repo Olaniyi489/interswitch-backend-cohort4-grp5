@@ -9,7 +9,7 @@ namespace blacklist.Application.Common.Models
     public class TokenConvert
     {
         public string UserName { get; set; }
-        public string UserId { get; set; }
+        public string Id { get; set; }
         public string Email { get; set; }
         public List<GetPermissionModel> UserPermissions { get; set; }
         public UserDto User { get; set; }

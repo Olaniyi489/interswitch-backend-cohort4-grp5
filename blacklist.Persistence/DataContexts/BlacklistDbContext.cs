@@ -35,6 +35,7 @@ namespace blacklist.Persistence.DataContexts
         #region Procedures
         public virtual DbSet<GetPermissionModel> GetPermissionModels { get; set; }
         public virtual DbSet<ProcedureResult> ProcedureResults { get; set; }
+        
 
         #endregion
 

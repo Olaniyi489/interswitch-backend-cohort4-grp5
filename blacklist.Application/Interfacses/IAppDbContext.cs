@@ -26,6 +26,7 @@ namespace blacklist.Application.Interfacses
         public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<ApplicationRole> Roles { get; set; }
         public  DbSet<UserActivities> UserActivities { get; set; }      
+        public DbSet<Domain.Entities.Blacklist> Blacklists { get; set; }
        
         //public DbSet<ProjectModule> ProjectModules { get; set; }
       

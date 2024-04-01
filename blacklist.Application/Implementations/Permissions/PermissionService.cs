@@ -43,8 +43,7 @@ namespace blacklist.Application.Implementations.Permissions
                 await _trans.CommitAsync();
                 response.IsSuccessful = true;
                 response.Data = true;
-
-                SetSuccess(response, true, ResponseCodes.SUCCESS, _language);
+                response.SuccessMessage = "Permission created successfully";
             }
             else
             {

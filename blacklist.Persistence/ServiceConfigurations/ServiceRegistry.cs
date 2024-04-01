@@ -3,6 +3,8 @@ using blacklist.Application.Implementations.DashBoard;
 using blacklist.Application.Implementations.RolePermissions;
 using blacklist.Application.Interfacses.DashBoard;
 using blacklist.Application.Interfacses.RolePermissions;
+using blacklist.Application.Interfacses.Blacklist;
+using blacklist.Application.Implementations.Blacklist;
 
 
 
@@ -71,6 +73,7 @@ namespace blacklist.Persistence.ServiceConfigurations
             services.AddScoped<IResetPassword, ResetPassword>();
             services.AddScoped<IRolePermission, RolePermissionService>();
             services.AddScoped<IDashBoardService, DashBoardService>();
+            services.AddScoped<IBlacklistService, BlacklistService>();
             //System Related
             services.AddScoped<IFileSystemManagerService,  FileSystemManagerService>();
             services.AddScoped<IEmailService, EmailService>();

@@ -74,10 +74,10 @@ namespace blacklist.Application.Implementations.UserAccounts
             }
 
 
-            if (!request.Email.EndsWith("@vatebra.com"))
-            {
-                return SetError(response, ResponseCodes.INVALID_OBJECT_MAPPING, _language);
-            }
+            //if (!request.Email.EndsWith("@vatebra.com"))
+            //{
+            //    return SetError(response, ResponseCodes.INVALID_OBJECT_MAPPING, _language);
+            //}
 
             var existingUser = await _userManager.FindByEmailAsync(request.Email);
             if (existingUser != null)
@@ -86,15 +86,18 @@ namespace blacklist.Application.Implementations.UserAccounts
                 return response;
             }
 
+
             UserDto userDto = null;
             // Create a new user
             var newUser = request.Adapt<ApplicationUser>();
             newUser.UserName = request.Email;
             newUser.Id = Guid.NewGuid().ToString();
             newUser.DateCreated = DateTime.Now;
-            newUser.Occupation = "Vatebra";
+            newUser.Occupation = "Organization";
+            newUser.Department = request.Department.ToString();
             newUser.CountryId = 1;
             newUser.IsActive = true;
+            newUser.IsBlacklisted = false;
             newUser.EmailConfirmed = false;
             newUser.FullName = $"{request.FirstName} {request.LastName}";
             var Password = PasswordGenHelper.GenerateRandomPassword(8);
@@ -174,8 +177,8 @@ namespace blacklist.Application.Implementations.UserAccounts
 
 
                 };
-                var emailSuccess = await _emailHelper.SendMail(emailPayLoad);
-                // var emailSuccess = _emailService.ActivationEmail(user.Email, user.FirstName);
+              var emailSuccess = await _emailHelper.SendMail(emailPayLoad);
+               //  var emailSuccess = _emailService.ActivationEmail(user.Email, user.FirstName);
 
                 if (emailSuccess.statusCode == "200")
                 {
@@ -191,8 +194,39 @@ namespace blacklist.Application.Implementations.UserAccounts
             }
             else
             {
-                SetError(response, ResponseCodes.REQUEST_NOT_SUCCESSFUL, _language);
-                return response;
+                userDto = newUser.Adapt<UserDto>();
+                var ActivationLink = GenerateActivationLink(newUser.Id);
+                string htmlPath = _environment.ContentRootPath + Path.DirectorySeparatorChar + "EmailTemplates/WelcomeEmailTemplate.html";
+                string htmlContent = Convert.ToString(Utilities.ReadHtmlFile(htmlPath));
+                var body = htmlContent
+                    .Replace("{USERNAME}", userDto.UserName)
+                    .Replace("{EMAIL}", request.Email)
+                    .Replace("{PASSWORD}", Password)
+                    .Replace("{ACTIVATIONLINK}", ActivationLink);
+                var emailPayLoad = new EmailServiceModel
+                {
+                    from = _emailServiceBinding?.Sender ?? "",
+                    messageBody = body, //$"Kindly find your password :{Password} and user name {request.Email} Link {ActivationLink}",
+                    projectCode = _emailServiceBinding?.ProjectCode ?? "",
+                    to = request.Email,
+                    sentNow = true,
+                    subject = "User Registration",
+                    recieverName = newUser.FullName,
+                    scheduleDate = DateTime.Now,
+                    senderName = _emailServiceBinding?.SenderName ?? "N/A",
+
+
+                };
+                var emailSuccess = await _emailHelper.SendMail(emailPayLoad);
+                //  var emailSuccess = _emailService.ActivationEmail(user.Email, user.FirstName);
+
+                //if (emailSuccess.statusCode == "200")
+                //{
+                    await _trans.CommitAsync();
+
+                    SetSuccess(response, userDto, ResponseCodes.SUCCESS, _language);
+               // }
+               
             }
 
             return response;

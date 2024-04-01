@@ -45,8 +45,8 @@ namespace blacklist.Application.Implementations.Roles
 
                 await _trans.CommitAsync();
                 response.IsSuccessful = true;
+                response.SuccessMessage = "Role was created successfully";
 
-                SetSuccess(response, true, ResponseCodes.SUCCESS, _language);
             }
             else
             {

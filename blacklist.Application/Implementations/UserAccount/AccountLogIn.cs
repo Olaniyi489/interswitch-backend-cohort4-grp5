@@ -61,6 +61,19 @@ namespace blacklist.Application.Implementations.UserAccount
                 return response;
             }
 
+            if (user.IsBlacklisted)
+            {
+                response.IsSuccessful = false;
+                response.Data = null;
+                response.Error = new ErrorResponse
+                {
+                    ResponseCode = ResponseCodes.RECORD_DOES_NOT_EXISTS,
+                    ResponseDescription = _messageProvider.GetMessage(ResponseCodes.USER_IS_BLACKLISTED, _language)
+                };
+
+                return response;
+            }
+
             var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
             if (signInResult != null && signInResult.Succeeded)
@@ -108,7 +121,8 @@ namespace blacklist.Application.Implementations.UserAccount
                             Permissions = rolePermissions.AsQueryable().ProjectToType<PermissionDTO>().ToList()
                         };
 
-                        response.SuccessMessage = _messageProvider.GetMessage(ResponseCodes.SUCCESS, _language);
+                        response.SuccessMessage = "User login successfully";
+                        response.IsSuccessful = true;
                     }
                     else
                     {

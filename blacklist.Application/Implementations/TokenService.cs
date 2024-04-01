@@ -142,7 +142,7 @@ namespace blacklist.Application.Implementations
                     {
                         UserName = name,
                         Email = email,
-                        UserId = userId,
+                        Id = userId,
                         UserPermissions = userPermissions,
                         User = userDetailsDeserialize
                         
@@ -177,7 +177,7 @@ namespace blacklist.Application.Implementations
                         { 
                             UserName = name,
                             Email = email,
-                            UserId = userId,
+                            Id = userId,
                             UserPermissions = userPermissions,
                             User = userDetailsDeserialize
                         };

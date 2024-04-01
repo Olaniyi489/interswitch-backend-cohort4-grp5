@@ -16,6 +16,7 @@ namespace blacklist.Application.Common.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool IsActive { get; set; }
+        public bool IsBlacklisted { get; set; }
         public DateTime DateCreated { get; set; }
         public List<RoleDto> UserRoles { get; set; } = new List<RoleDto>();
 

@@ -39,7 +39,7 @@ namespace blacklist.Application.Helpers
                         ccRecieverEmail = "",
                         ccRecieverName = ""
                     }
-                                };
+                };
                 var payLoad = JsonConvert.SerializeObject(request);
 
                 StringContent content = new StringContent(payLoad, Encoding.UTF8, "application/json");
@@ -51,10 +51,11 @@ namespace blacklist.Application.Helpers
                     result = JsonConvert.DeserializeObject<EmailServiceResponse>(apiResponse);
                 }
                 bool status = false;
-                if (result != null) { 
-                    
-                    status=  result.statusCode == "200" ? true : false; 
-                
+                if (result != null)
+                {
+
+                    status = result.statusCode == "200" ? true : false;
+
                 }
                 await _context.MessagingSystem.AddAsync(new MessagingSystem
                 {

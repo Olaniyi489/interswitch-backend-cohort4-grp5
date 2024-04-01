@@ -51,7 +51,7 @@ namespace blacklist.Application.Implementations.UserAccount
             {
                 return SetError(response, ResponseCodes.INVALID_TOKEN, _language );
             }
-            var userId = token.UserId;
+            var userId = token.Id;
 
             var logout = await _sessionsService.DeleteSessionAsync(userId, _language);
             

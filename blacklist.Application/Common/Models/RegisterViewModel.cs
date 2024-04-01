@@ -10,7 +10,8 @@ namespace blacklist.Application.Common.Models
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Department { get; set; }
+        public BlacklistCategory Department { get; set; }
+        public string PhoneNumber { get; set; }
         public List<RegisterRole>  Role { get; set; }
       
       
@@ -47,7 +48,7 @@ namespace blacklist.Application.Common.Models
                 return false;
             }
 
-            if (string.IsNullOrEmpty(Department))
+            if (string.IsNullOrEmpty(Department.ToString()))
             {
                 var message = $"Department {messageProvider.GetMessage(ResponseCodes.DATA_IS_REQUIRED, lang)}";
                 response.Code = ResponseCodes.DATA_IS_REQUIRED;
