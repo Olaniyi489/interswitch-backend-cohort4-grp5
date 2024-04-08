@@ -164,9 +164,9 @@ namespace blacklist.Application.Implementations.UserAccounts
                     .Replace("{PASSWORD}", Password)
                     .Replace("{ACTIVATIONLINK}", ActivationLink);
                 var emailPayLoad = new EmailServiceModel
-                {
+                {                   
                     from = _emailServiceBinding?.Sender ?? "",
-                    messageBody = body, //$"Kindly find your password :{Password} and user name {request.Email} Link {ActivationLink}",
+                    messageBody = body,
                     projectCode = _emailServiceBinding?.ProjectCode ?? "",
                     to = request.Email,
                     sentNow = true,
@@ -175,22 +175,21 @@ namespace blacklist.Application.Implementations.UserAccounts
                     scheduleDate = DateTime.Now,
                     senderName = _emailServiceBinding?.SenderName ?? "N/A",
 
-
                 };
-              var emailSuccess = await _emailHelper.SendMail(emailPayLoad);
-               //  var emailSuccess = _emailService.ActivationEmail(user.Email, user.FirstName);
+                var emailSuccess = await _emailHelper.SendMail(emailPayLoad);
+                //  var emailSuccess = _emailService.ActivationEmail(user.Email, user.FirstName);
 
-                if (emailSuccess.statusCode == "200")
-                {
+                //if (emailSuccess.statusCode == "200")
+                //{
                     await _trans.CommitAsync();
 
                     SetSuccess(response, userDto, ResponseCodes.SUCCESS, _language);
-                }
-                else
-                {
+             //   }
+                //else
+                //{
 
-                    SetError(response, ResponseCodes.REQUEST_NOT_SUCCESSFUL, _language);
-                }
+                //    SetError(response, ResponseCodes.REQUEST_NOT_SUCCESSFUL, _language);
+                //}
             }
             else
             {
@@ -206,7 +205,7 @@ namespace blacklist.Application.Implementations.UserAccounts
                 var emailPayLoad = new EmailServiceModel
                 {
                     from = _emailServiceBinding?.Sender ?? "",
-                    messageBody = body, //$"Kindly find your password :{Password} and user name {request.Email} Link {ActivationLink}",
+                    messageBody = body,
                     projectCode = _emailServiceBinding?.ProjectCode ?? "",
                     to = request.Email,
                     sentNow = true,
@@ -215,19 +214,19 @@ namespace blacklist.Application.Implementations.UserAccounts
                     scheduleDate = DateTime.Now,
                     senderName = _emailServiceBinding?.SenderName ?? "N/A",
 
-
                 };
-                var emailSuccess = await _emailHelper.SendMail(emailPayLoad);
+               var emailSuccess = await _emailHelper.SendMail(emailPayLoad);
                 //  var emailSuccess = _emailService.ActivationEmail(user.Email, user.FirstName);
 
                 //if (emailSuccess.statusCode == "200")
                 //{
-                    await _trans.CommitAsync();
+                await _trans.CommitAsync();
 
-                    SetSuccess(response, userDto, ResponseCodes.SUCCESS, _language);
-               // }
-               
+                SetSuccess(response, userDto, ResponseCodes.SUCCESS, _language);
+                // }
+
             }
+
 
             return response;
 

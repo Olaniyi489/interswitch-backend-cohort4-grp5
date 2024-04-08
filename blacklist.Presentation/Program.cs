@@ -92,7 +92,7 @@ var app = builder.Build();
 
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 var logFactory = app.Services.GetRequiredService<ILoggerFactory>();
-await app.SeedSuperAdmin();
+//await app.SeedSuperAdmin();
 
 
 

@@ -63,10 +63,10 @@ namespace VAT_SOP.Presentation.Controllers.UserAccounts
             }
         }
 
-        [ProducesResponseType(typeof(ServerResponse<UserDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(typeof(ServerResponse<UserDto>), StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        //[ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
         [HttpPost("create-user")]
         public async Task<IActionResult> Create(RegisterViewModel model)
         {
