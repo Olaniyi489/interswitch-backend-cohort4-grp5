@@ -404,7 +404,8 @@ namespace blacklist.Application.Implementations.UserAccounts
                         Id = group.First().user.Id,
                         FirstName = group.First().user.FirstName,
                         LastName = group.First().user.LastName,
-                        IsActive = group.First().user.IsActive,    
+                        IsActive = group.First().user.IsActive, 
+                        IsBlacklisted = group.First().user.IsBlacklisted,
                         DateCreated = group.First().user.DateCreated,
                         UserRoles = group.Select(x => new RoleDto
                         {
@@ -456,6 +457,7 @@ namespace blacklist.Application.Implementations.UserAccounts
                         Id = group.First().user.Id,
                         FirstName = group.First().user.FirstName,
                         LastName = group.First().user.LastName,
+                        IsBlacklisted = group.First().user.IsBlacklisted,
                         IsActive = group.First().user.IsActive,
                         DateCreated = group.First().user.DateCreated,
                         UserRoles = group.Select(x => new RoleDto
@@ -481,17 +483,6 @@ namespace blacklist.Application.Implementations.UserAccounts
 
             return response;
         }
-
-
-        //public async Task<ServerResponse<bool>> IsUserExists(string userEmail)
-        //{
-
-        //    var response = new ServerResponse<UserDto>();
-        //    var data = await _context.GetData<User>("Exec [dbo].[SP_GetUsers]\", new SqlParameter(\"@id\", userId)");
-        //    response.IsSuccessful = true;
-        //    response.Data = data.AsQueryable().ProjectToType<UserDto>().FirstOrDefault();
-        //    return response;
-        //}
 
         public async Task<ServerResponse<bool>> IsUserExists(string userEmail)
         {
@@ -620,6 +611,7 @@ namespace blacklist.Application.Implementations.UserAccounts
                         Id = y.First().user.Id,
                         FirstName = y.First().user.FirstName,
                         LastName = y.First().user.LastName,
+                        IsBlacklisted = y.First().user.IsBlacklisted,
                         IsActive = y.First().user.IsActive,
                         UserRoles = y.Select(x => new RoleDto
                         {
